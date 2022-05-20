@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<robot name="robot">
+    <!-- World link -->
+    <link name="world" />
+
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin xyz="0 0 0.5" />
+            <geometry>
+                <box size="1 1 1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 5.5" />
+            <geometry>
+                <box size="1 1 1" />
+            </geometry>
+        </collision>
+        
+        <inertial>
+            <mass value="10" />
+            <inertia ixx="1" ixy="0" ixz="0" iyy="1" iyz="0" izz="1" />
+        </inertial>
+
+    </link>
+
+    <!-- Fix in the world -->
+    <joint name="base" type="fixed">
+        <origin xyz="0 0 0" />
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
+
+    <!-- First link -->
+    <link name="link_yaw">
+        <visual>
+            <origin xyz="0 0 1" />
+            <geometry>
+                <cylinder radius="0.3" length="2" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 1" />
+            <geometry>
+                <cylinder radius="0.3" length="2" />
+            </geometry>
+        </collision>
+        
+        <inertial>
+            <mass value="3" />
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+
+    <joint name="joint_yaw" type="revolute">
+        <origin xyz="0 0 1" />
+        <parent link="base_link" />
+        <child link="link_yaw" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3" upper="3" velocity="10" effort="1000" />
+    </joint>
+
+    <!-- Second link -->
+    <link name="link_pitch">
+        <visual>
+            <origin xyz="0 0 1" />
+            <geometry>
+                <cylinder radius="0.3" length="2" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 1" />
+            <geometry>
+                <cylinder radius="0.3" length="2" />
+            </geometry>
+        </collision>
+        
+        <inertial>
+            <mass value="3" />
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+
+    <joint name="joint_pitch" type="revolute">
+        <origin xyz="0 0 2" />
+        <parent link="link_yaw" />
+        <child link="link_pitch" />
+        <axis xyz="0 1 0" />
+        <limit lower="0.1" upper="2.6" velocity="1" effort="1000" />
+    </joint>
+    
+    <!-- Third link -->
+    <link name="link_rotate">
+        <visual>
+            <origin xyz="0 0 0.05" />
+            <geometry>
+                <box size="0.3 0.8 0.1" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0.05" />
+            <geometry>
+                <box size="0.3 0.8 0.1" />
+            </geometry>
+        </collision>
+
+        <inertial>
+            <mass value="0.1" />
+            <inertia ixx="0" ixy="0" ixz="0" iyy="0" iyz="0" izz="0" />
+        </inertial>
+    </link>
+
+    <joint name="joint_rotate" type="revolute">
+        <origin xyz="0 0 2" />
+        <parent link="link_pitch" />
+        <child link="link_rotate" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="3.14" velocity="1" effort="1000" />
+    </joint>
+
+
+    <!-- Gazebo -->
+    <transmission name="trans_joint_yaw">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_yaw">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_yaw_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <transmission name="trans_joint_pitch">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_pitch">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_pitch_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    
+    <transmission name="trans_joint_rotate">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="joint_rotate">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="joint_rotate_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+
+    <gazebo>
+        <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+            <robotNamespace>/robot</robotNamespace>
+        </plugin>
+    </gazebo>
+</robot>
