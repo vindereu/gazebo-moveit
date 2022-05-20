@@ -2,7 +2,7 @@
 Gazebo與Moveit測試
 
 # 下載
-`sudo apt install ros-noetic-moveit`
+`sudo apt install ros-noetic-moveit`<br>
 `git clone https://github.com/vindereu/gazebo-moveit.git`
 <br>
 若沒有載過cv_py套件包<br>
