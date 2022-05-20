@@ -1,6 +1,0 @@
-robot_controller:
-    type: "position_controllers/JointGroupPositionController"
-    joints:
-        - joint_yaw
-        - joint_pitch
-        - joint_rotate
