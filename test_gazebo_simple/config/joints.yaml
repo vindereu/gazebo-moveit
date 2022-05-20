@@ -1,0 +1,8 @@
+/robot/robot_joint_state:
+    type: "joint_state_controller/JointStateController"
+    publish_rate: 50
+
+/robot/gazebo_ros_control/pid_gains:
+    joint_yaw: {p: 3, i: 1, d: 5}
+    joint_pitch: {p: 5, i: 1, d: 5}
+    joint_rotate: {p: 5, i: 1, d: 5}
