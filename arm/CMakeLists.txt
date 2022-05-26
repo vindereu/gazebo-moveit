@@ -1,7 +1,8 @@
 cmake_minimum_required(VERSION 3.1.3)
 project(arm)
 
-find_package(catkin REQUIRED)
+find_package(catkin REQUIRED
+    arm_description)
 
 catkin_package()
 
