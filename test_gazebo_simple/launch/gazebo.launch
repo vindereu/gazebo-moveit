@@ -33,4 +33,7 @@
     <node name="robot_controller_spawner" pkg="controller_manager" type="spawner"
           args="robot_controller --timeout 5 --namespace robot" />
 
+    <!-- Image Process -->
+    <node pkg="test_gazebo_simple" type="camera.py" name="camera" output="screen" required="true" />
+
 </launch>
