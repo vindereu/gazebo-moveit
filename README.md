@@ -1,19 +1,17 @@
-# gazebo-moveit
-Gazebo與Moveit測試
+# 版本
+- ROS Noetic
+- openCV 4.2.0
+- Gazebo11
 
-# 下載
-`sudo apt install ros-noetic-moveit`<br>
-`git clone https://github.com/vindereu/gazebo-moveit.git`
-<br>
-若沒有載過cv_py套件包<br>
-`git clone https://github.com/vindereu/openCV-model.git`
+# 非ROS依賴
+- vindereu/openCV-model/cv_py
 
-# 運行
-## arm
-`roslaunch arm demo_gazebo.launch`
+# 安裝(非ROS依賴需要記得另外安裝)
+1. cd <工作區域>/src
+2. `git clone https://github.com/vindereu/gazebo-moveit.git`
+3. rospack profile
+4. rosdep install test_gazebo_simple arm arm_description
+5. cd .. && catkin_make
 
-<br>
-
-## test_gazebo_simple
-`roslaunch test_gazebo_simple gazebo.launch`<br>
-`rosrun test_gazebo_simple camera.py`
+# 使用方式
+參考doc資料夾內容
